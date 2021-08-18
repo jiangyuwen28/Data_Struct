@@ -8,7 +8,7 @@ public class HeaderList<T> {
     private Node<T> tail;
     private int nodeCount;
 
-    HeaderList(){
+    public HeaderList(){
         this.first = new Node<T>();
         this.tail = this.first;
         this.nodeCount = 0;
@@ -53,19 +53,24 @@ public class HeaderList<T> {
      * 注意点：当只有一个节点，且被删除时，要把尾指针tail修改等于头指针first
      * @param index
      */
-    public void deleteByIndex(int index){
+    public T deleteByIndex(int index){
         if(this.nodeCount < index){
             System.out.println("索引越界");
-            return;
+            return null;
         }
         Node node = this.first;
         //遍历到删除节点的前一个节点位置
         for(int i = 1; i < index; i++){
             node = node.getNext();
         }
+        Node p = node.getNext();
+        T data = (T) p.getData();
         node.setNext(node.getNext().getNext());
         this.nodeCount--;
         if(this.nodeCount == 0) this.tail = this.first;
+        return data;
+
+
     }
 
     public void deleteByElement(T x){
@@ -104,6 +109,30 @@ public class HeaderList<T> {
              p = p.getNext();
             System.out.println(p.getData());
         }
+    }
+
+    public Node<T> getFirst() {
+        return first;
+    }
+
+    public void setFirst(Node<T> first) {
+        this.first = first;
+    }
+
+    public Node<T> getTail() {
+        return tail;
+    }
+
+    public void setTail(Node<T> tail) {
+        this.tail = tail;
+    }
+
+    public int getNodeCount() {
+        return nodeCount;
+    }
+
+    public void setNodeCount(int nodeCount) {
+        this.nodeCount = nodeCount;
     }
 
     public static void main(String[] args) {
